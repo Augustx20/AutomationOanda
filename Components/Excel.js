@@ -5,11 +5,12 @@ const SaveExcel = async () => {
 
     setTimeout(() => {
       //  Oanda
+      
       let EURUSD = Oanda.OandaArray[0];
       let EURCOP = Oanda.OandaArray[1];
       let CNYUSD = Oanda.OandaArray[2];
       let JPYUSD = Oanda.OandaArray[3];
-      const wb = xlsx.readFile("Datos.xlsx");
+      //const wb = xlsx.readFile("Datos.xlsx");
   
   const datos = [
       ["","Bancos","","","","Oanda"],
@@ -26,10 +27,10 @@ const SaveExcel = async () => {
     ];
   
     var ws = xlsx.utils.aoa_to_sheet(datos);
-  
+    const wb = xlsx.utils.book_new();
     wb.Sheets['Datos'] = ws;
-  
-    xlsx.writeFile(wb, "Datos.xlsx"); 
+    xlsx.utils.book_append_sheet(wb,ws,"datos")
+    xlsx.writeFile(wb, "datos.xlsx"); 
     
     console.log("Excel Actualizado")
    

@@ -3,6 +3,7 @@ const Selector = "#cc-time-series-plot > div > div > div:nth-child(2) > div > ta
 
 const OandaArray = [];
 
+
 const Oanda = async () => {
   const URL = [
     "https://www.oanda.com/currency-converter/es/?from=EUR&to=USD&amount=1",
@@ -23,19 +24,26 @@ try {
     tmp.Data = document.querySelector(
     "#cc-time-series-plot > div > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td:nth-child(2)").innerHTML;
     return tmp});
-    
+   
     let valor = book.Data.replace(/,/g, ".");
     let numero = Number(valor);
     OandaArray.push(numero);
 };
+let value = 0
+var j = OandaArray.map(i =>{ return isNaN(i) ? 0 : i});
+console.log(j)
+OandaArray.splice(OandaArray.indexOf('NaN'),1,value)
 
 } catch (err) {
+
   console.log("The Page Oanda didn't Load");
   await browser.close();
 }
 
-var j = OandaArray.map(i =>{ return isNaN(i) ? 0 : i});  
-console.log(j);
+
+    console.log(j);
+    console.log(OandaArray);
+    
 
 for (var i = 0; i < URL.length; i++) {
     const websiteUrl = URL[i];
@@ -53,4 +61,5 @@ await browser.close();
 module.exports = {
   Oanda,
   OandaArray,
+  
 };
