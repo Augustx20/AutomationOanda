@@ -6,14 +6,14 @@ const SaveExcel = async () => {
     setTimeout(() => {
       //  Oanda
       
-      let EURUSD = Oanda.OandaArray[0];
-      let EURCOP = Oanda.OandaArray[1];
-      let CNYUSD = Oanda.OandaArray[2];
-      let JPYUSD = Oanda.OandaArray[3];
+      let EURUSD = Oanda.h[0];
+      let EURCOP = Oanda.h[1];
+      let CNYUSD = Oanda.h[2];
+      let JPYUSD = Oanda.h[3];
       //const wb = xlsx.readFile("Datos.xlsx");
   
   const datos = [
-      ["","Bancos","","","","Oanda"],
+      ["","Banks","","","","Oanda"],
       ["Country","To /From","Amount","","","To/From","Amount"],
       ["Costa Rica","USD CRC","","","","EUR USD",EURUSD],
       ["Uruguay","USD UYU","","","","EUR COP",EURCOP],
@@ -32,7 +32,7 @@ const SaveExcel = async () => {
     xlsx.utils.book_append_sheet(wb,ws,"datos")
     xlsx.writeFile(wb, "datos.xlsx"); 
     
-    console.log("Excel Actualizado")
+    console.log("Update Excel")
    
   }, 6500)
   

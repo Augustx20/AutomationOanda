@@ -1,5 +1,6 @@
-const ProcessOanda = require('./ExchangeRate/Oanda')
-const ProcessExcel = require('./Components/Excel')
+const ProcessOanda = require('./ExchangeRate/Oanda');
+const ProcessExcel = require('./Components/Excel');
+console.log("Search Exchange Rate")
 ProcessOanda.Oanda();
 setTimeout(() => { 
 ProcessExcel.SaveExcel()

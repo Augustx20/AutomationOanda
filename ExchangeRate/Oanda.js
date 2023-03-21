@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 const Selector = "#cc-time-series-plot > div > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td:nth-child(2)";
 
 const OandaArray = [];
-
+const h = [];
 
 const Oanda = async () => {
   const URL = [
@@ -14,52 +14,39 @@ const Oanda = async () => {
 const browser = await puppeteer.launch({handless: false});
 const page = await browser.newPage();
 try {
-  for (let UrlPage of URL) {
+  for (let UrlPage of URL){
     await page.goto(UrlPage);
     await page.setViewport({width: 1280, height: 720})
-    await page.waitForSelector("#cc-time-series-plot");
-    
+    await page.waitForSelector(Selector);
     const book = await page.evaluate(() => {
     const tmp = {};
-    tmp.Data = document.querySelector(
-    "#cc-time-series-plot > div > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td:nth-child(2)").innerHTML;
+    tmp.Data = document.querySelector("#cc-time-series-plot > div > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td:nth-child(2)").innerHTML;
     return tmp});
-   
     let valor = book.Data.replace(/,/g, ".");
     let numero = Number(valor);
     OandaArray.push(numero);
 };
-let value = 0
 var j = OandaArray.map(i =>{ return isNaN(i) ? 0 : i});
-console.log(j)
-OandaArray.splice(OandaArray.indexOf('NaN'),1,value)
+h.push(...j)
+console.log(h)
 
 } catch (err) {
-
-  console.log("The Page Oanda didn't Load");
-  await browser.close();
+console.log("The Page Oanda didn't Load");
+await browser.close();
 }
-
-
-    console.log(j);
-    console.log(OandaArray);
-    
 
 for (var i = 0; i < URL.length; i++) {
     const websiteUrl = URL[i];
     await page.goto(websiteUrl)
     await page.waitForSelector(Selector);
-    await page.wa
     await page.screenshot({
         path: `Oanda_${i+1}.jpg`,
     }) 
 }
 await browser.close();
-
 }
 
 module.exports = {
   Oanda,
-  OandaArray,
-  
+  h,
 };
